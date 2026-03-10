@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 
-const RestaurantSignup = () => {
+const RestaurantSignup = async () => {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [cpassword,setCpassword] = useState("");
@@ -37,6 +37,9 @@ const RestaurantSignup = () => {
             delete result.password;
             localStorage.setItem("restaurantUser",JSON.stringify(result))
             router.push('/restaurant/dashboard')
+        }
+        else{
+            alert("Some error occured!")
         }
     }
     return (

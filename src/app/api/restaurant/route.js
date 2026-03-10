@@ -13,8 +13,15 @@ export async function GET(){
 
 export async function POST(request){
     let payload = await request.json();
+    let result;
     await mongoose.connect(connectionStr);
-    let restaurant = new restaurantSchema(payload);
-    const result = await restaurant.save();
-    return NextResponse.json({result,success:true})
+    if(payload.login){
+        result = await restaurantSchema.findOne({email:payload.email})
+    }
+    else{
+        let restaurant = new restaurantSchema(payload);
+        const result = await restaurant.save();
+    }
+    const success = !!result;
+    return NextResponse.json({result,success})    
 }
